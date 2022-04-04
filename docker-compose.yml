@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+
+  getvideo:
+    image: taquanghung1705199/get_video:0.1
+    volumes:
+      - .:/getvideo
+
+    environment:
+      FLASK_ENV: development
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: '1G'
+      labels:
+        camera_ai: get_video
+
+    # command: bash -c "tail -f /dev/null"
+    # command: bash -c "cd src && python get_video.py"
+    command: bash -c "cd src && python get_video.py > /getvideo/get_video.log 2>&1"
+  
+  recommender:
+    image: taquanghung1705199/fhs_camera_ai:0.1
+    volumes:
+      - .:/FastMOT
+      - ./data/:/FastMOT/src/data/
+
+    environment:
+      FLASK_ENV: development
+
+    deploy:
+      resources:
+        limits:
+          cpus: '12'
+          memory: '15G'
+
+    # command: bash -c "tail -f /dev/null"
+    # command: bash -c "cd /FastMOT/src && python main.py -n 4 -d /FastMOT/src/data"
+    command: bash -c "cd /FastMOT && sleep 30 && /usr/bin/sh ./run.sh"

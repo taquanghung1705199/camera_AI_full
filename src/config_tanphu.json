@@ -1,0 +1,35 @@
+{
+    "block_time": 60,  
+    "store_name": "tanphu",
+    "open_time": "10:00:00",
+    "close_time": "23:00:00",
+        
+    "cameras": [
+        {
+            "name": "cam_4",
+            "rtsp": "rtsp://admin:364fahasa@nstp.ddns.net:554/Streaming/Channels/401",
+            "floor": 0,
+            "regions":[
+                {
+                    "regionID": "f5b5ba8a-f10f-4f9a-8077-34201c218cd3",
+                    "type": "line",
+                    "name": "gate 1",
+                    "points": "(195, 141), (656, 140)"
+                }
+            ]
+        },
+        {
+            "name": "cam_6",
+            "rtsp": "rtsp://admin:364fahasa@nstp.ddns.net:554/Streaming/Channels/601",
+            "floor": 0,
+            "regions":[
+                {
+                    "regionID": "f08a9617-d5b0-4816-ae57-f56e5de672f0",
+                    "type": "line",
+                    "name": "gate 2",
+                    "points": "(371, 73), (722, 82)"
+                }
+            ]
+        }
+    ]
+}

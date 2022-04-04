@@ -1,0 +1,47 @@
+{
+    "block_time": 60,
+    "store_name": "quan9",
+    "open_time": "08:00:00",
+    "close_time": "23:00:00",
+    "cameras": [
+        {
+            "name": "cam_8",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/801",
+            "floor": "0",
+            "regions": [
+                {
+                    "regionID": "1b088cb0-c20b-4735-bf16-755964f0046f",
+                    "type": "line",
+                    "name": "gate",
+                    "points": "(440, 200), (575, 166)"
+                }
+            ]
+        },
+        {
+            "name": "cam_2",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/201",
+            "floor": "1",
+            "regions": [
+                {
+                    "regionID": "4d2e641b-e92f-41d6-a737-546422d02792",
+                    "type": "polygon",
+                    "name": "children's playground",
+                    "points": "[[76, 67], [696, 52], [833, 207], [2, 214], [5, 104]]"
+                }
+            ]
+        },
+        {
+            "name": "cam_11",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/1101",
+            "floor": "1",
+            "regions": [
+                {
+                    "regionID": "701edca7-eb0b-43af-bf03-c17234b47eeb",
+                    "type": "polygon",
+                    "name": "children isle",
+                    "points": "[[243, 150], [611, 136], [796, 477], [55, 457]]"
+                }
+            ]
+        }
+    ]
+}
