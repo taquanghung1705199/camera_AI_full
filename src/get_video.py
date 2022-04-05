@@ -35,7 +35,7 @@ with open('config.json', 'r') as json_file:
     threads = {}
     config = json.load(json_file)
     cameras = config['cameras']
-    block_time = config['block_time']
+    block_time = int(config['block_time'])
     store_name = config['store_name']
     close_time = config['close_time']
     try:

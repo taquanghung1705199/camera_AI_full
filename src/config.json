@@ -8,7 +8,7 @@
             "name": "cam_4",
             "rtsp": "rtsp://admin:364fahasa@nstp.ddns.net:554/Streaming/Channels/401",
             "floor": "0",
-            "interest_time": "10",
+            "interest_time": 10,
             "regions": [
                 {
                     "regionID": "79db21db-4661-4b9b-9847-e9f4d4f62df8",

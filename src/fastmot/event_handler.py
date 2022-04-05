@@ -65,16 +65,11 @@ class Handler:
     # def detect(self, frame, bboxes, frame_count, fps, block_start_time):
     def detect(self, frame, detections, frame_count, fps, block_start_time):
         self.detections = detections
-        # print(self.detections)
         boxes = []
         indexIDs = []
         previous = self.memory.copy()
         self.memory = {}
         for key, value, labels in self.detections:
-            # if key not in self.trk_location.keys():
-            #     self.trk_location[key] = 0
-            # else:
-            #     self.trk_location[key] += 1
             boxes.append([value[0], value[1], value[2], value[3], labels, key])
             indexIDs.append(int(key))
             self.memory[indexIDs[-1]] = boxes[-1]
@@ -111,15 +106,11 @@ class Handler:
                         if poly.contains(point_now):
                             polygon['contain'] += 1
                             key_location = "{}-{}".format(str(box[5]), str(LABEL_MAP[box[4]]))
-                            # if box[5] not in self.trk_location[polygon['name']].keys():
                             if key_location not in self.trk_location[polygon['name']].keys():
-                                # self.trk_location[polygon['name']][box[5]] = 0
                                 self.trk_location[polygon['name']][key_location] = 1
                             else:
-                                # self.trk_location[polygon['name']][box[5]] += 1
                                 self.trk_location[polygon['name']][key_location] += 1
-                                
-                                if self.trk_location[polygon['name']][key_location] == self.main_config["interest_time"]*12: 
+                                if self.trk_location[polygon['name']][key_location] == int(self.main_config["interest_time"])*12: 
                                     event = self.event(polygon['regionID'], polygon['name'], self.main_config['floor'], polygon['type'], 'interesting', box[4], self.get_time_now(frame_count, fps, block_start_time))
                                     self.all_events.append(event)
 
@@ -136,7 +127,6 @@ class Handler:
     def draw_line(self, frame):
         for p in self.lines:
                 cv2.line(frame, p['points'][0], p['points'][1], (0,255,255), 5)
-
                 cv2.putText(frame, '{}, in: {}/out: {}'.format(p['name'], str(p['in']), str(p['out'])), 
                            p['points'][0], cv2.FONT_HERSHEY_SIMPLEX, 
                             0.5, (255,255,255), 2, cv2.LINE_AA)
@@ -144,20 +134,12 @@ class Handler:
     def draw_polygon(self, frame):
         for poly in self.polygons:
                 cv2.polylines(frame, [poly['points']], True, (0,255,255), 2)
-
                 cv2.putText(frame, '{}: {}'.format(poly['name'], str(poly['contain'])), 
                            poly['points'][0], cv2.FONT_HERSHEY_SIMPLEX,
                             0.5, (255,255,255), 2, cv2.LINE_AA)
-
                 cv2.putText(frame, '{}, in: {}/out: {}'.format(poly['name'], str(poly['in']), str(poly['out'])), 
                            poly['points'][1], cv2.FONT_HERSHEY_SIMPLEX,
                             0.5, (255,255,255), 2, cv2.LINE_AA)
-
-    def _interesting(self):
-        return {
-            "male": 0,
-            "female": 0
-        }
 
     def output(self, main_config, config2, block_start_time, log):
         text = {}
@@ -168,43 +150,33 @@ class Handler:
         a_cam['name'] = main_config['name']
         a_cam['rtsp'] = main_config['rtsp']
         a_cam['events'] = self.all_events
-        # text['cameras'].append(a_cam)
         text['cameras'] = a_cam
-        favorite = {}
-        gender = []
-        interesting = {}
 
-        for k_trk, v_trk in self.trk_location.items():
-            
-            favorite[k_trk] = 0
-            
-            interesting[k_trk] = {}
-            for k_v, v_v in v_trk.items():
-                if v_v >= self.main_config["interest_time"]*12:
-                    
-                    favorite[k_trk] += 1
-                    gender.append(k_v.split("-")[-1])
-                    
-                    if k_v.split("-")[-1] not in interesting[k_trk]:
-                        interesting[k_trk][k_v.split("-")[-1]] = 1
-                    else:
-                        interesting[k_trk][k_v.split("-")[-1]] += 1 
-        
+        # favorite = {}
+        # gender = []
+        # interesting = {}
+
         # for k_trk, v_trk in self.trk_location.items():
-        #     # favorite[k_trk] = 0
-        #     interesting[k_trk] = self._interesting()
+            
+        #     favorite[k_trk] = 0
+            
+        #     interesting[k_trk] = {}
         #     for k_v, v_v in v_trk.items():
-        #         if v_v > 15:
-        #             # favorite[k_trk] += 1
-        #             # gender.append(k_v.split("-")[-1])
-        #             interesting[k_trk][k_v.split("-")[-1]] += 1
+        #         if v_v >= int(self.main_config["interest_time"])*12:
+                    
+        #             favorite[k_trk] += 1
+        #             gender.append(k_v.split("-")[-1])
+                    
+        #             if k_v.split("-")[-1] not in interesting[k_trk]:
+        #                 interesting[k_trk][k_v.split("-")[-1]] = 1
+        #             else:
+        #                 interesting[k_trk][k_v.split("-")[-1]] += 1 
 
-        text['location'] = self.trk_location
-        text['favorite'] = favorite
-        text['gender'] = gender
+        # text['location'] = self.trk_location
+        # text['favorite'] = favorite
+        # text['gender'] = gender
+        # text['interesting'] = interesting
 
-        text['interesting'] = interesting
-        # text['interesting'] = [{k: v} for k, v in interesting.items() if len(v)!=0]
         if len(a_cam['events']) != 0:
             with open(log, 'w') as out_text:
                 json.dump(text, out_text, indent=4)
