@@ -100,8 +100,8 @@ class YOLO:
 class YOLOv4(YOLO):
     # ENGINE_PATH = Path(__file__).parent / 'yolov4_crowdhuman.trt'
     # MODEL_PATH = Path(__file__).parent /  'yolov4_crowdhuman.onnx'
-    ENGINE_PATH = Path(__file__).parent / 'yolov4_hung.trt'
-    MODEL_PATH = Path(__file__).parent /  'yolov4_hung.onnx'
+    ENGINE_PATH = Path(__file__).parent / 'yolov4_gender.trt'
+    MODEL_PATH = Path(__file__).parent /  'yolov4_gender.onnx'
     NUM_CLASSES = 2
     # INPUT_SHAPE = (3, 512, 512)
     # INPUT_SHAPE = (3, 416, 416)

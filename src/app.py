@@ -145,14 +145,14 @@ def run(directory, config, number_thread, residual):
                                     # out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
                                     # Path(out).parent.mkdir(parents=True, exist_ok=True)
                                     # shutil.move(uri, out)
-                                    raise
+                                    # raise
                                     os.remove(uri)
                                 except Exception as e:
                                     logger.error("{} is broken because {}".format(uri, e))
                                     # out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
                                     # Path(out).parent.mkdir(parents=True, exist_ok=True)
                                     # shutil.move(uri, out)
-                                    raise
+                                    # raise
                                     os.remove(uri)
 
                     if 0 < frame < 120:
