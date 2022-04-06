@@ -105,14 +105,15 @@ class Handler:
                         point_pre = Point(p_pre)
                         if poly.contains(point_now):
                             polygon['contain'] += 1
-                            key_location = "{}-{}".format(str(box[5]), str(LABEL_MAP[box[4]]))
-                            if key_location not in self.trk_location[polygon['name']].keys():
-                                self.trk_location[polygon['name']][key_location] = 1
-                            else:
-                                self.trk_location[polygon['name']][key_location] += 1
-                                if self.trk_location[polygon['name']][key_location] == int(self.main_config["interest_time"])*12: 
-                                    event = self.event(polygon['regionID'], polygon['name'], self.main_config['floor'], polygon['type'], 'interesting', box[4], self.get_time_now(frame_count, fps, block_start_time))
-                                    self.all_events.append(event)
+
+                            # key_location = "{}-{}".format(str(box[5]), str(LABEL_MAP[box[4]]))
+                            # if key_location not in self.trk_location[polygon['name']].keys():
+                            #     self.trk_location[polygon['name']][key_location] = 1
+                            # else:
+                            #     self.trk_location[polygon['name']][key_location] += 1
+                            #     if self.trk_location[polygon['name']][key_location] == int(self.main_config["interest_time"])*12: 
+                            #         event = self.event(polygon['regionID'], polygon['name'], self.main_config['floor'], polygon['type'], 'interesting', box[4], self.get_time_now(frame_count, fps, block_start_time))
+                            #         self.all_events.append(event)
 
                         if poly.contains(point_now) and not (poly.contains(point_pre)):
                             polygon['in'] += 1

@@ -120,8 +120,8 @@ def run(directory, config, number_thread, residual):
                                 main_config = camera
                                 uri = video
                                 config_AI = "./cfg/mot.json"
-                                out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
-                                # out = None
+                                # out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
+                                out = None
                                 log = '{}/{}_text/{}.json'.format(store_name, main_config['name'], videos.split('.')[0])
                                 mot = True
                                 gui = False
