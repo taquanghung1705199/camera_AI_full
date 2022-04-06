@@ -1,8 +1,3 @@
-##Init trt
-cd fastmot/plugins
-make
-return main folder
-
 #1:
 get image
 python get-image.py
@@ -13,8 +8,7 @@ python draw_line.py
 python draw_polygon.py
 
 #3:
-copy info draw to config.json
+python combination.py
 
 #4:
-run with main.py -n 5
-(5 processes)
+docker stack deploy -c docker-compose.yml cameraAI

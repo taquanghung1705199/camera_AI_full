@@ -21,7 +21,7 @@ services:
     # command: bash -c "cd src && python get_video.py"
     command: bash -c "cd src && python get_video.py > /getvideo/get_video.log 2>&1"
   
-  recommender:
+  AI:
     image: taquanghung1705199/fhs_camera_ai:0.1
     volumes:
       - .:/FastMOT
@@ -33,8 +33,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '12'
-          memory: '15G'
+          cpus: '8'
+          memory: '8G'
 
     # command: bash -c "tail -f /dev/null"
     # command: bash -c "cd /FastMOT/src && python main.py -n 4 -d /FastMOT/src/data"
