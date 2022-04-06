@@ -6,8 +6,8 @@ services:
     volumes:
       - .:/getvideo
 
-    environment:
-      FLASK_ENV: development
+    # environment:
+    #   FLASK_ENV: development
 
     deploy:
       resources:
@@ -27,8 +27,8 @@ services:
       - .:/FastMOT
       - ./data/:/FastMOT/src/data/
 
-    environment:
-      FLASK_ENV: development
+    # environment:
+    #   FLASK_ENV: development
 
     deploy:
       resources:
