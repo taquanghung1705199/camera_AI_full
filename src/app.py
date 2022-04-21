@@ -114,7 +114,7 @@ def run(directory, config, number_thread, residual):
                         # shutil.move(video, out)
                         os.remove(video)
 
-                    if frame >= 120:
+                    if frame >= int(fps*config["minimum_length_of_video"]):
                         for camera in config['cameras']:
                             if camera['name'] == videos.split('*')[0]:
                                 main_config = camera
@@ -155,8 +155,8 @@ def run(directory, config, number_thread, residual):
                                     # raise
                                     os.remove(uri)
 
-                    if 0 < frame < 120:
-                        logger.info("{} is deleted because time of video is less than 10s".format(video))
+                    if 0 < frame < int(fps*config["minimum_length_of_video"]):
+                        logger.info("{} is deleted because time of video is less than {}s".format(video, int(config["minimum_length_of_video"])))
                         # out = '{}/{}_video/{}.mp4'.format(store_name, videos.split('*')[0], videos.split('.')[0])
                         # Path(out).parent.mkdir(parents=True, exist_ok=True)
                         # shutil.move(video, out)

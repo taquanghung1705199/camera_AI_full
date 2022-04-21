@@ -10,15 +10,17 @@ LOGGER = logging.getLogger(__name__)
 
 class YOLO:
     PLUGIN_PATH = Path(__file__).parents[1] / 'plugins' / 'libyolo_layer.so'
-    ENGINE_PATH = Path(__file__).parent /  'yolov4-608.trt'
-    MODEL_PATH = Path(__file__).parent /  'yolov4-608.onnx'
-    NUM_CLASSES = 80
+    ENGINE_PATH = Path(__file__).parent /  'yolov4_gender.trt'
+    MODEL_PATH = Path(__file__).parent /  'yolov4_gender.onnx'
+    NUM_CLASSES = 2
     LETTERBOX = False
     NEW_COORDS = False
     INPUT_SHAPE = (3, 608, 608)
     LAYER_FACTORS = [8, 16, 32]
     SCALES = [1.2, 1.1, 1.05]
-    ANCHORS = [12, 16, 19, 36, 40, 28, 36, 75, 76, 55, 72, 146, 142, 110, 192, 243, 459, 401]
+    ANCHORS = [[12,16, 19,36, 40,28],
+               [36,75, 76,55, 72,146],
+               [142,110, 192,243, 459,401]]
 
     @classmethod
     def add_plugin(cls, network):
@@ -98,22 +100,21 @@ class YOLO:
 
 
 class YOLOv4(YOLO):
-    # ENGINE_PATH = Path(__file__).parent / 'yolov4_crowdhuman.trt'
-    # MODEL_PATH = Path(__file__).parent /  'yolov4_crowdhuman.onnx'
-    ENGINE_PATH = Path(__file__).parent / 'yolov4_gender.trt'
-    MODEL_PATH = Path(__file__).parent /  'yolov4_gender.onnx'
+    ENGINE_PATH = Path(__file__).parent / 'yolov4_crowdhuman.trt'
+    MODEL_PATH = Path(__file__).parent /  'yolov4_crowdhuman.onnx'
+    # ENGINE_PATH = Path(__file__).parent / 'yolov4_gender.trt'
+    # MODEL_PATH = Path(__file__).parent /  'yolov4_gender.onnx'
     NUM_CLASSES = 2
-    # INPUT_SHAPE = (3, 512, 512)
-    # INPUT_SHAPE = (3, 416, 416)
-    INPUT_SHAPE = (3, 608, 608)
+    INPUT_SHAPE = (3, 512, 512)
+    # INPUT_SHAPE = (3, 608, 608)
     LAYER_FACTORS = [8, 16, 32]
     SCALES = [1.2, 1.1, 1.05]
-    # ANCHORS = [[11,22, 24,60, 37,116],
-    #            [54,186, 69,268, 89,369],
-    #            [126,491, 194,314, 278,520]]
-    ANCHORS = [[12,16, 19,36, 40,28], 
-               [36,75, 76,55, 72,146], 
-               [142,110, 192,243, 459,401]]
+    ANCHORS = [[11,22, 24,60, 37,116],
+               [54,186, 69,268, 89,369],
+               [126,491, 194,314, 278,520]]
+    # ANCHORS = [[12,16, 19,36, 40,28], 
+    #            [36,75, 76,55, 72,146], 
+    #            [142,110, 192,243, 459,401]]
 
 
 """

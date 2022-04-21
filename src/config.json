@@ -1,32 +1,46 @@
 {
     "block_time": 60,
-    "store_name": "tanphu",
-    "open_time": "10:00:00",
-    "close_time": "22:00:00",
+    "minimum_length_of_video": 10,
+    "store_name": "quan9",
+    "open_time": "08:00:00",
+    "close_time": "23:00:00",
     "cameras": [
         {
-            "name": "cam_4",
-            "rtsp": "rtsp://admin:364fahasa@nstp.ddns.net:554/Streaming/Channels/401",
+            "name": "cam_8",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/801",
             "floor": "0",
-            "interest_time": 10,
             "regions": [
                 {
-                    "regionID": "79db21db-4661-4b9b-9847-e9f4d4f62df8",
-                    "type": "polygon",
-                    "name": "polygon1",
-                    "points": "[[186, 194], [275, 255], [81, 426], [22, 348]]"
-                },
-                {
-                    "regionID": "aa8e070b-3eb5-467c-9485-670d4ddc5650",
-                    "type": "polygon",
-                    "name": "polygon2",
-                    "points": "[[661, 204], [534, 229], [581, 332], [732, 278]]"
-                },
-                {
-                    "regionID": "7af500b5-0fb0-4d12-9e23-98acd9dd7371",
+                    "regionID": "1b088cb0-c20b-4735-bf16-755964f0046f",
                     "type": "line",
                     "name": "gate",
-                    "points": "(198, 151), (583, 157)"
+                    "points": "(440, 200), (575, 166)"
+                }
+            ]
+        },
+        {
+            "name": "cam_2",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/201",
+            "floor": "1",
+            "regions": [
+                {
+                    "regionID": "4d2e641b-e92f-41d6-a737-546422d02792",
+                    "type": "polygon",
+                    "name": "children's playground",
+                    "points": "[[76, 67], [696, 52], [833, 207], [2, 214], [5, 104]]"
+                }
+            ]
+        },
+        {
+            "name": "cam_11",
+            "rtsp": "rtsp://admin:475fahasa@nsquan9.ddns.net:554/Streaming/Channels/1101",
+            "floor": "1",
+            "regions": [
+                {
+                    "regionID": "701edca7-eb0b-43af-bf03-c17234b47eeb",
+                    "type": "polygon",
+                    "name": "children isle",
+                    "points": "[[243, 150], [611, 136], [796, 477], [55, 457]]"
                 }
             ]
         }
