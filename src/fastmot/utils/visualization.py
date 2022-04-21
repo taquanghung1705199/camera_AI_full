@@ -18,9 +18,8 @@ def draw_tracks(frame, tracks, show_flow=False, show_cov=False):
 
 def draw_detections(frame, detections):
     for det in detections:
-        # draw_bbox(frame, det.tlbr, (255, 255, 255), 1)
-        text = f'{LABEL_MAP[det.label]}: {det.conf:.2f}'
-        draw_bbox(frame, det.tlbr, (255,255,255), 2, text)
+        text = f'{str(det[0])}-{LABEL_MAP[det[2]]}'
+        draw_bbox(frame, det[1], (255,255,255), 2, text)
 
 
 def draw_flow_bboxes(frame, tracker):

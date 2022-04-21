@@ -111,7 +111,7 @@ class Handler:
                             #     self.trk_location[polygon['name']][key_location] = 1
                             # else:
                             #     self.trk_location[polygon['name']][key_location] += 1
-                            #     if self.trk_location[polygon['name']][key_location] == int(self.main_config["interest_time"])*12: 
+                            #     if self.trk_location[polygon['name']][key_location] == int(self.main_config["interest_time"])*int(fps): 
                             #         event = self.event(polygon['regionID'], polygon['name'], self.main_config['floor'], polygon['type'], 'interesting', box[4], self.get_time_now(frame_count, fps, block_start_time))
                             #         self.all_events.append(event)
 
@@ -127,7 +127,7 @@ class Handler:
     
     def draw_line(self, frame):
         for p in self.lines:
-                cv2.line(frame, p['points'][0], p['points'][1], (0,255,255), 5)
+                cv2.line(frame, p['points'][0], p['points'][1], (0,255,255), 2)
                 cv2.putText(frame, '{}, in: {}/out: {}'.format(p['name'], str(p['in']), str(p['out'])), 
                            p['points'][0], cv2.FONT_HERSHEY_SIMPLEX, 
                             0.5, (255,255,255), 2, cv2.LINE_AA)

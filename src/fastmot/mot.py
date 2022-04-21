@@ -97,9 +97,8 @@ class MOT:
                 with Profiler('detect'):
                     with Profiler('track'):
                         self.tracker.compute_flow(frame)
-                        # self.handler.detect(frame, self.tracker.flow_bboxes, self.frame_count, fps, block_start_time)
                     detections = self.detector.postprocess()
-                    my_detections = [(my_track.trk_id, my_track.tlbr, my_track.label) for my_track in self.tracker.tracks.values()]
+                    my_detections = [(my_track.trk_id, my_track.tlbr, my_track.label) for my_track in self.visible_tracks]
                     self.handler.detect(frame, my_detections, self.frame_count, fps, block_start_time)
                     
 
@@ -113,6 +112,8 @@ class MOT:
             else:
                 with Profiler('track'):
                     self.tracker.track(frame)
+                # my_detections = [(my_track.trk_id, my_track.tlbr, my_track.label) for my_track in self.visible_tracks]
+                # self.handler.detect(frame, my_detections, self.frame_count, fps, block_start_time)
 
         if self.draw:
             self.handler.draw_line(frame)
@@ -131,8 +132,9 @@ class MOT:
         LOGGER.debug(f"{'association time:':<37}{Profiler.get_avg_millis('assoc'):>6.3f} ms")
 
     def _draw(self, frame, detections):
-        draw_tracks(frame, self.visible_tracks, show_flow=self.verbose)
-        draw_detections(frame, detections)
+        # draw_tracks(frame, self.visible_tracks, show_flow=self.verbose)
+        my_detections = [(my_track.trk_id, my_track.tlbr, my_track.label) for my_track in self.visible_tracks]
+        draw_detections(frame, my_detections)
         if self.verbose:
             draw_detections(frame, detections)
             draw_flow_bboxes(frame, self.tracker)
