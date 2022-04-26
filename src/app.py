@@ -80,7 +80,7 @@ def main(uri, config, main_config, out, log, mot, gui, verbose, config2, block_s
         logger.info('Average FPS: %d', avg_fps)
     #     mot.print_timing_info()
 
-def run(directory, config, number_thread, residual):
+def run(directory, config, para_env):
     # set up logging
     logging.basicConfig(format='%(asctime)s [%(levelname)8s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     logger = logging.getLogger(fastmot.__name__)
@@ -92,7 +92,7 @@ def run(directory, config, number_thread, residual):
         for cams in os.listdir(today):
             cam = os.path.join(today, cams)
             # if store_name not in cam:
-            if int(cam.split('_')[-1]) % number_thread == residual:
+            if int(cam.split('_')[-1]) % para_env.number_thread == para_env.residual:
                 for videos in os.listdir(cam):
                     video = os.path.join(cam, videos)
                     try:
@@ -114,14 +114,16 @@ def run(directory, config, number_thread, residual):
                         # shutil.move(video, out)
                         os.remove(video)
 
-                    if frame >= 120:
+                    if frame >= int(config["minimum_length_of_video"])*12:
                         for camera in config['cameras']:
                             if camera['name'] == videos.split('*')[0]:
                                 main_config = camera
                                 uri = video
                                 config_AI = "./cfg/mot.json"
-                                # out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
-                                out = None
+                                if para_env.test:
+                                    out = '{}/{}_video/{}.mp4'.format(store_name, main_config['name'], videos.split('.')[0])
+                                else:
+                                    out = None
                                 log = '{}/{}_text/{}.json'.format(store_name, main_config['name'], videos.split('.')[0])
                                 mot = True
                                 gui = False
@@ -155,7 +157,7 @@ def run(directory, config, number_thread, residual):
                                     # raise
                                     os.remove(uri)
 
-                    if 0 < frame < 120:
+                    if 0 < frame < int(config["minimum_length_of_video"])*12:
                         logger.info("{} is deleted because time of video is less than 10s".format(video))
                         # out = '{}/{}_video/{}.mp4'.format(store_name, videos.split('*')[0], videos.split('.')[0])
                         # Path(out).parent.mkdir(parents=True, exist_ok=True)
@@ -186,10 +188,12 @@ if __name__ == '__main__':
     parser.add_argument('-n', '--number_thread', metavar='N', type=int, required=True, help='Create number of Thread')
     parser.add_argument('-r', '--residual', metavar='N', type=int, required=True, help='Create Thread')
     parser.add_argument('-d', '--directory', metavar='N', type=str, default='/FastMOT/src/data', help='Create Directory')
+    parser.add_argument('-t', '--test', action='store_true', help='create output video')
     para_env = parser.parse_args()
     number_thread = para_env.number_thread
     residual = para_env.residual
     directory = para_env.directory
+    test = para_env.test
 
     if residual >= number_thread:
         print('residual is less than number of thread !')
@@ -197,5 +201,5 @@ if __name__ == '__main__':
 
     with open('config.json', 'r') as json_file:
         config = json.load(json_file)
-        run(directory, config, number_thread, residual)
+        run(directory, config, para_env)
             
