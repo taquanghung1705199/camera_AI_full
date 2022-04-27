@@ -11,9 +11,10 @@ def final_cameras(name, regions, rtsp="", interest_time="", floor=""):
     }
     return result
 
-def final(block_time, store_name, open_time, close_time, cameras):
+def final(block_time, minimum_length_of_video, store_name, open_time, close_time, cameras):
     result = {
-        "block_time": block_time,  
+        "block_time": block_time, 
+        "minimum_length_of_video": minimum_length_of_video, 
         "store_name": store_name,
         "open_time": open_time,
         "close_time": close_time,
@@ -41,6 +42,6 @@ for i in os.listdir(folder):
             for c in cameras:
                 if c['name'] == name:
                     c["regions"].append(o)
-final = final(60, "", "", "", cameras)
+final = final(60, 10, "", "", "", cameras)
 with open("config_test.json", "w") as json_file:
     json.dump(final, json_file, indent = 4)
