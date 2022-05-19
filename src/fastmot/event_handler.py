@@ -70,9 +70,21 @@ class Handler:
         previous = self.memory.copy()
         self.memory = {}
         for key, value, labels in self.detections:
-            boxes.append([value[0], value[1], value[2], value[3], labels, key])
-            indexIDs.append(int(key))
-            self.memory[indexIDs[-1]] = boxes[-1]
+            if labels != 2:
+                boxes.append([value[0], value[1], value[2], value[3], labels, key])
+                indexIDs.append(int(key))
+                self.memory[indexIDs[-1]] = boxes[-1]
+
+        # hold old object
+        for i in self.detections:
+            id = [j for j in self.memory.keys()]
+            for m in id:
+                if i[0] == m :
+                    self.memory[i[0]][:4] = i[1]
+        for k, v in previous.items():
+            if k not in self.memory.keys():
+                self.memory.update({k:v})
+
         if len(boxes) > 0:
             i = int(0)
             for point_poly in self.polygons:
@@ -130,17 +142,17 @@ class Handler:
                 cv2.line(frame, p['points'][0], p['points'][1], (0,255,255), 2)
                 cv2.putText(frame, '{}, in: {}/out: {}'.format(p['name'], str(p['in']), str(p['out'])), 
                            p['points'][0], cv2.FONT_HERSHEY_SIMPLEX, 
-                            0.5, (255,255,255), 2, cv2.LINE_AA)
+                            0.5, (0,0,255), 2, cv2.LINE_AA)
 
     def draw_polygon(self, frame):
         for poly in self.polygons:
                 cv2.polylines(frame, [poly['points']], True, (0,255,255), 2)
                 cv2.putText(frame, '{}: {}'.format(poly['name'], str(poly['contain'])), 
                            poly['points'][0], cv2.FONT_HERSHEY_SIMPLEX,
-                            0.5, (255,255,255), 2, cv2.LINE_AA)
+                            0.5, (0,0,255), 2, cv2.LINE_AA)
                 cv2.putText(frame, '{}, in: {}/out: {}'.format(poly['name'], str(poly['in']), str(poly['out'])), 
                            poly['points'][1], cv2.FONT_HERSHEY_SIMPLEX,
-                            0.5, (255,255,255), 2, cv2.LINE_AA)
+                            0.5, (0,0,255), 2, cv2.LINE_AA)
 
     def output(self, main_config, config2, block_start_time, log):
         text = {}

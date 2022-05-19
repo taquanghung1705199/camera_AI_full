@@ -16,10 +16,12 @@ args = parser.parse_args()
 
 cap = cv2.VideoCapture(args.input_uri)
 output = args.output_uri
+count = 0
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
     frame = cv2.resize(frame, (960, 480), interpolation = cv2.INTER_AREA)
-    
+    count += 1
     cv2.imwrite(output, frame)
-    break
+    if count == 5:
+        break

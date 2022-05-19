@@ -12,7 +12,7 @@ class YOLO:
     PLUGIN_PATH = Path(__file__).parents[1] / 'plugins' / 'libyolo_layer.so'
     ENGINE_PATH = Path(__file__).parent /  'yolov4_gender.trt'
     MODEL_PATH = Path(__file__).parent /  'yolov4_gender.onnx'
-    NUM_CLASSES = 2
+    NUM_CLASSES = 3
     LETTERBOX = False
     NEW_COORDS = False
     INPUT_SHAPE = (3, 608, 608)

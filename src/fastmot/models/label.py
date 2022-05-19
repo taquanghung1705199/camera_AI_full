@@ -5,7 +5,8 @@
 
 LABEL_MAP = (
     'male',
-    'female'
+    'female',
+    'security'
 )
 
 # LABEL_MAP = (
