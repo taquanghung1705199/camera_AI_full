@@ -22,7 +22,7 @@
         },
         "yolo_detector": {
             "model": "YOLO",
-            "class_ids": [0, 1],
+            "class_ids": [0, 1, 2],
             "conf_thresh": 0.25,
             "max_area": 800000,
             "nms_thresh": 0.5
